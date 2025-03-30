@@ -34,6 +34,7 @@ allprojects {
     val testcontainersBom: String by project
     val protobufBom: String by project
     val guava: String by project
+    val jmh: String by project
 
     apply(plugin = "io.spring.dependency-management")
     dependencyManagement {
@@ -44,6 +45,8 @@ allprojects {
                 mavenBom("com.google.protobuf:protobuf-bom:$protobufBom")
             }
             dependency("com.google.guava:guava:$guava")
+            dependency("org.openjdk.jmh:jmh-core:$jmh")
+            dependency("org.openjdk.jmh:jmh-generator-annprocess:$jmh")
         }
     }
 
@@ -74,17 +77,17 @@ subprojects {
 
     tasks.withType<JavaCompile> {
         options.encoding = "UTF-8"
-//        options.compilerArgs.addAll(listOf("-Xlint:all,-serial,-processing"))
+        options.compilerArgs.addAll(listOf("-Xlint:all,-serial,-processing"))
 
         dependsOn("spotlessApply")
     }
-//    apply<name.remal.gradle_plugins.sonarlint.SonarLintPlugin>()
-//    configure<SonarLintExtension> {
-//        nodeJs {
-//            detectNodeJs = false
-//            logNodeJsNotFound = false
-//        }
-//    }
+    apply<name.remal.gradle_plugins.sonarlint.SonarLintPlugin>()
+    configure<SonarLintExtension> {
+        nodeJs {
+            detectNodeJs = false
+            logNodeJsNotFound = false
+        }
+    }
     apply<com.diffplug.gradle.spotless.SpotlessPlugin>()
     configure<com.diffplug.gradle.spotless.SpotlessExtension> {
         java {
