@@ -1,5 +1,6 @@
 package homework;
 
+@SuppressWarnings({"java:S2975", "java:S1135", "java:S1488"})
 public class Customer implements Cloneable {
     private final long id;
     private String name;
