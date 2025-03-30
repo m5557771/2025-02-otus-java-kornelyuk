@@ -2,6 +2,7 @@ package homework;
 
 import java.util.*;
 
+@SuppressWarnings({"java:S2975", "java:S1135", "java:S1488"})
 public class CustomerReverseOrder {
     private final Deque<Customer> deque = new ArrayDeque<>();
 

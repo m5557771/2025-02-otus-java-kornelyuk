@@ -2,8 +2,10 @@ package homework;
 
 import java.util.Comparator;
 import java.util.Map;
+import java.util.NavigableMap;
 import java.util.TreeMap;
 
+@SuppressWarnings({"java:S2975", "java:S1135", "java:S1488"})
 public class CustomerService {
     private final Comparator<Customer> byScore = Comparator.comparing(Customer::getScores);
     private final NavigableMap<Customer, String> map = new TreeMap<>(byScore);
