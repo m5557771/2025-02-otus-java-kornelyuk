@@ -38,26 +38,30 @@ public final class TestFramework {
         var success = 0;
         var failed = 0;
         for (Method method : testMethods) {
+            TestClass instance = null;
             try {
                 log.debug("BEGIN: {}", method.getName());
-                var instance = testClass.getDeclaredConstructor().newInstance();
+                instance = testClass.getDeclaredConstructor().newInstance();
                 for (Method beforeMethod : beforeMethods) {
                     beforeMethod.invoke(instance);
                 }
 
                 method.invoke(instance);
 
-                for (Method afterMethod : afterMethods) {
-                    afterMethod.invoke(instance);
-                }
-
                 log.debug("SUCCESS");
 
                 success++;
             } catch (Exception e) {
                 log.debug("FAILED");
-
                 failed++;
+            } finally {
+                for (Method afterMethod : afterMethods) {
+                    try {
+                        afterMethod.invoke(instance);
+                    } catch (Exception e) {
+                        log.debug("failed: {}", afterMethod.getName());
+                    }
+                }
             }
             log.debug("END: {}", method.getName());
         }
