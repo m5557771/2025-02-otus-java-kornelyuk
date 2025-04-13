@@ -10,7 +10,7 @@ import ru.atm.model.Banknote;
 @SuppressWarnings({"java:S1640"})
 public class SdkImpl implements Sdk {
     private static final Logger log = LoggerFactory.getLogger(SdkImpl.class);
-    private final Map<Banknote, Long> amountOfBanknotes = new HashMap<>();
+    private final Map<Banknote, Long> amountOfBanknotes = new EnumMap<>(Banknote.class);
 
     @Override
     public void pushBanknotes(@NotNull Map<Banknote, Long> banknotes) {
