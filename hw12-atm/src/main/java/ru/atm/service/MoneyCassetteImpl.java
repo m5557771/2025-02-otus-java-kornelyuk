@@ -1,15 +1,14 @@
 package ru.atm.service;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.atm.model.Banknote;
 
-@SuppressWarnings({"java:S1640"})
-public class SdkImpl implements Sdk {
-    private static final Logger log = LoggerFactory.getLogger(SdkImpl.class);
+public class MoneyCassetteImpl implements MoneyCassette {
+    private static final Logger log = LoggerFactory.getLogger(MoneyCassetteImpl.class);
     private final Map<Banknote, Long> amountOfBanknotes = new EnumMap<>(Banknote.class);
 
     @Override
@@ -22,7 +21,7 @@ public class SdkImpl implements Sdk {
 
     @Override
     public @NotNull Map<Banknote, Long> getMoney(long sum) {
-        Map<Banknote, Long> banknotes = new HashMap<>();
+        Map<Banknote, Long> banknotes = new EnumMap<>(Banknote.class);
 
         var keys = amountOfBanknotes.keySet().stream().sorted().toList().reversed();
         long collected = 0;

@@ -10,33 +10,33 @@ import ru.atm.util.Calc;
 public class AtmImpl implements Atm {
     private volatile long amountOfMoney = 0L;
 
-    private final Sdk sdk;
+    private final MoneyCassette moneyCassette;
 
-    public AtmImpl(Sdk sdk) {
-        this.sdk = sdk;
+    public AtmImpl(MoneyCassette moneyCassette) {
+        this.moneyCassette = moneyCassette;
     }
 
     public AtmImpl() {
-        this.sdk = new SdkImpl();
+        this.moneyCassette = new MoneyCassetteImpl();
     }
 
     @Override
     public synchronized void pushBanknotes(@NotNull Map<Banknote, Long> banknotes) {
-        sdk.pushBanknotes(banknotes);
+        moneyCassette.pushBanknotes(banknotes);
         amountOfMoney += Calc.calculateSum(banknotes);
     }
 
     @Override
     public synchronized @NotNull Map<Banknote, Long> getMoney(long sum) {
         if (sum > amountOfMoney) {
-            throw new NotEnoughMoney("Not enough money");
+            throw new NotEnoughMoney("Not enough money. Try to get " + sum + ", but available " + amountOfMoney);
         }
         Map<Banknote, Long> banknotes;
         try {
-            banknotes = sdk.getMoney(sum);
-            sdk.openDispenser();
+            banknotes = moneyCassette.getMoney(sum);
+            moneyCassette.openDispenser();
         } catch (Exception e) {
-            throw new NotEnoughBanknotes(e.getMessage());
+            throw new NotEnoughBanknotes("Not enough banknotes. Try to get " + sum);
         }
         amountOfMoney -= sum;
 

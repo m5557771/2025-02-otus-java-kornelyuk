@@ -4,7 +4,7 @@ import java.util.Map;
 import org.jetbrains.annotations.NotNull;
 import ru.atm.model.Banknote;
 
-public interface Sdk {
+public interface MoneyCassette {
     void pushBanknotes(Map<Banknote, Long> banknotes);
 
     @NotNull
