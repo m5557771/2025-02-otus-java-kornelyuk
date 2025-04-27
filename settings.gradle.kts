@@ -5,6 +5,7 @@ include("hw06-annotations")
 include("hw08-gc")
 include("hw10-proxy")
 include("hw12-atm")
+include("hw15-structural-patterns:homework")
 
 pluginManagement {
     val jgitver: String by settings
