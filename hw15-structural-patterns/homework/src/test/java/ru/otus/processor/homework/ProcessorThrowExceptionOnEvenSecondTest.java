@@ -9,7 +9,7 @@ import ru.otus.model.Message;
 class ProcessorThrowExceptionOnEvenSecondTest {
 
     @Test
-    void positive_odd_second() {
+    void positiveOddSecond() {
         // given
         var processor = new ProcessorThrowExceptionOnEvenSecond(() -> {
             return LocalDateTime.ofEpochSecond(1L, 0, ZoneOffset.UTC);
@@ -25,7 +25,7 @@ class ProcessorThrowExceptionOnEvenSecondTest {
     }
 
     @Test
-    void negative_even_second() {
+    void negativeEvenSecond() {
         // given
         var processor = new ProcessorThrowExceptionOnEvenSecond(() -> {
             return LocalDateTime.ofEpochSecond(2L, 0, ZoneOffset.UTC);

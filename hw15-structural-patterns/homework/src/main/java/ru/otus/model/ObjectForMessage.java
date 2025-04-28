@@ -6,7 +6,7 @@ public class ObjectForMessage {
     private List<String> data;
 
     public ObjectForMessage(ObjectForMessage obj) {
-        if (obj != null) {
+        if (obj != null && obj.data != null) {
             this.data = obj.data.stream().toList();
         }
     }
